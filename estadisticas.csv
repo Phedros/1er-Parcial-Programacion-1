@@ -1,3 +1,2 @@
-nombre,posicion,temporadas,puntos_totales,promedio_puntos_por_partido,rebotes_totales,promedio_rebotes_por_partido,asistencias_totales,promedio_asistencias_por_partido,robos_totales,bloqueos_totales,porcentaje_tiros_de_campo,porcentaje_tiros_libres,porcentaje_tiros_triples
-Karl Malone,Ala-Pivot,19,36928,25,14968,10.1,5248,3.6,2085,1145,51.6,74.2,27.4
+Jugador,Posicion,Temporadas,Puntos totales,Promedio puntos por partido,Rebotes totales,Promedio rebotes por partido,Asistencias totales,Promedio asistencias por partido,Robos totales,Bloqueos totales,Porcentaje tiros de campo,Porcentaje tiros libres,Porcentaje tiros triples
 Michael Jordan,Escolta,15,32292,30.1,6672,6.2,5633,5.3,2514,893,49.7,83.5,32.7

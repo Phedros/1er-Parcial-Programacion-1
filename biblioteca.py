@@ -1,6 +1,7 @@
 from Equipo import Equipo
 import re
 import json
+import sqlite3
 
 
 def cargar_equipo_dreamteam():
@@ -326,15 +327,16 @@ def ordenar_listado_asistencias_totales_descendente():
 def imprimir_menu():
     print(
     """
-    1 - Mostrar la lista de todos los jugadores del Dream Team
-    2 - Mostrar sus estadísticas completas de un jugador
-    3 - Mostrar logros de jugador
-    4 - Calcular y mostrar el promedio de puntos por partido de forma ascendente
-    5 - Consultar si un jugador es miembro del Salón de la Fama del Baloncesto.
-    6 - Calcular y mostrar el jugador con la mayor cantidad de rebotes totales.
-    7 - Ordenar asistencias totales de manera descendente
-    8 - Ver porcentajes de robos y bloqueos totales de manera ascendente
-    9 - Salir
+    1  - Mostrar la lista de todos los jugadores del Dream Team
+    2  - Mostrar sus estadísticas completas de un jugador
+    3  - Mostrar logros de jugador
+    4  - Calcular y mostrar el promedio de puntos por partido de forma ascendente
+    5  - Consultar si un jugador es miembro del Salón de la Fama del Baloncesto.
+    6  - Calcular y mostrar el jugador con la mayor cantidad de rebotes totales.
+    7  - Ordenar asistencias totales de manera descendente
+    8  - Ver porcentajes de robos y bloqueos totales de manera ascendente
+    9  - Crear tabla de posiciones en base de datos
+    10 - Salir
     """)
     respuesta = input('Ingrese una opcion: ')
     respuesta = int(respuesta)
@@ -356,11 +358,20 @@ los bloqueos totales ("robos_totales" + "bloqueos_totales").
 '''
 
 def calcular_porcentaje(numero:float, valor_max:float):
+    '''
+    Ingresa un numero (float) y un valor maximo (float)
+    calcula el porcentaje del numero en base al valor maximo
+    '''
     resultado = numero * 100 / valor_max
     mensaje = f'{resultado:.2f}%'
     return mensaje
 
 def ordenar_jugadores_segun_robos_y_bloqueos():
+    '''
+    Ordena los jugadores del equipo Dream Team en base a la suma de los robos y los bloqueos
+    Calcula el porcentaje de ese total en base al mayor valor
+
+    '''
     # A) ordenar los jugadores por el valor sumado.
     lista_robos_y_bloqueos_valores = []
     lista_robos_y_bloqueos_valores_ordenada = []
@@ -379,8 +390,6 @@ def ordenar_jugadores_segun_robos_y_bloqueos():
             if v == valor_ordenado:
                 lista_robos_y_bloqueos_jugadores_ordenado.append(k)
                 dict_robos_y_bloqueos_jugadores_ordenado[k] = v
-
-    
 
     # listar todos los jugadores ordenados y mostrar el porcentaje de este valor
     # sumado tomando como 100% el valor máximo
@@ -411,26 +420,43 @@ def ordenar_jugadores_segun_robos_y_bloqueos():
     for _ in range(cantidad_jugadores):
         mensaje += lista_mensajes[contador]
         contador += 1
-    
+
     print(mensaje)
     
     
     return dict_robos_y_bloqueos_jugadores_ordenado
     
 
+def crear_tabla_posiciones_cargar_lista():
+    mi_equipo = cargar_equipo_dreamteam()
+    lista_jugadores = mi_equipo.lista_jugadores
+    lista_posiciones = []
+    for jugador in lista_jugadores:
+            posicion = jugador.posicion
+            lista_posiciones.append(posicion)
+    with sqlite3.connect('bd_btf.bd') as conexion:
+        try:    
+            sentencia = ''' create  table posicion_jugadores 
+                        (
+                            id integer primary key autoincrement,
+                            posiciones text
+                        )
+                    '''
+            conexion.execute(sentencia)
+            print("Se creo la tabla posiciones")                       
+        except sqlite3.OperationalError:
+            print("La tabla personajes ya existe")
+    
+    lista_valores_unicos = []
+    for posicion in lista_posiciones:
+        if posicion not in lista_valores_unicos:
+            lista_valores_unicos.append(posicion)
+    print(lista_valores_unicos)
 
-
-
-
-
-
-
-
-
-
-# mi_equipo = cargar_equipo_dreamteam()
-# dict_jugadores = mi_equipo.dict_jugadores_robos_mas_bloqueos()
-# print(dict_jugadores)
-
-# lista = ordenar_jugadores_segun_robos_y_bloqueos()
-# print(lista)
+    with sqlite3.connect("bd_btf.bd") as conexion:
+        for posicion in lista_valores_unicos:
+            try:
+                conexion.execute("insert into posicion_jugadores(posiciones) values (?)", (f"{posicion}",)) 
+            except:
+                print("Error")
+        conexion.commit()

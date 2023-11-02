@@ -25,6 +25,8 @@ def main_app():
             case 8:
                 ordenar_jugadores_segun_robos_y_bloqueos()
             case 9:
+                crear_tabla_posiciones_cargar_lista()
+            case 10:
                 print('Gracias por participar')
                 break
             case _:

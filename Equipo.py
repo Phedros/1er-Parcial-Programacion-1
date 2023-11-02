@@ -110,7 +110,7 @@ class Equipo:
             with open(nombre_archivo, 'a') as file:
                 file.write(texto)
         else:
-            texto_nuevo = 'nombre,posicion,temporadas,puntos_totales,promedio_puntos_por_partido,rebotes_totales,promedio_rebotes_por_partido,asistencias_totales,promedio_asistencias_por_partido,robos_totales,bloqueos_totales,porcentaje_tiros_de_campo,porcentaje_tiros_libres,porcentaje_tiros_triples\n'
+            texto_nuevo = 'Jugador,Posicion,Temporadas,Puntos totales,Promedio puntos por partido,Rebotes totales,Promedio rebotes por partido,Asistencias totales,Promedio asistencias por partido,Robos totales,Bloqueos totales,Porcentaje tiros de campo,Porcentaje tiros libres,Porcentaje tiros triples\n'
             texto_nuevo += texto
             print(texto)
             with open(nombre_archivo, 'w') as file:
