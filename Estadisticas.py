@@ -159,5 +159,8 @@ class Estadisticas:
     lista_tipo_estadisticas = ['temporadas','puntos_totales','promedio_puntos_por_partido','rebotes_totales','promedio_rebotes_por_partido','asistencias_totales','promedio_asistencias_por_partido','robos_totales','bloqueos_totales','porcentaje_tiros_de_campo','porcentaje_tiros_libres','porcentaje_tiros_triples']
 
     def suma_robos_bloqueos(self):
+        '''
+        Suma los robos y los bloqueos
+        '''
         suma = self.robos_totales + self.bloqueos_totales
         return suma

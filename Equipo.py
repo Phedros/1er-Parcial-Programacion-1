@@ -117,6 +117,11 @@ class Equipo:
                 file.write(texto_nuevo)
 
     def dict_jugadores_robos_mas_bloqueos(self):
+        '''
+        devuelve un dict con
+        key    -> nombres
+        values -> suma de robos y bloqueos
+        '''
         dict_jugadores = {}
         for jugador in self.lista_jugadores:
             dict_jugadores[jugador.nombre] = jugador.estadisticas.suma_robos_bloqueos()

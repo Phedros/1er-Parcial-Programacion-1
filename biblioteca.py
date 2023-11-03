@@ -8,6 +8,7 @@ def cargar_equipo_dreamteam():
     '''
     crea una variable
     se le asigna un objeto Equipo() con un equipo cargado
+    devuelve un objeto equipo
     '''
     direccion = "dream_team.json"
     mi_equipo = Equipo()
